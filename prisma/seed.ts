@@ -1,12 +1,14 @@
-import { PrismaClient } from '@prisma/client'
+// This file is used to seed the database with sample data
 
-const prisma = new PrismaClient()
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 async function main() {
-  console.log('Seeding database...')
+  console.log('Seeding database...');
 
   // Clear existing data
-  await prisma.todo.deleteMany()
+  await prisma.todo.deleteMany();
 
   // Insert sample data
   const todos = await prisma.todo.createMany({
@@ -37,16 +39,16 @@ async function main() {
         completed: false,
       },
     ],
-  })
+  });
 
-  console.log(`✅ Created ${todos.count} sample todos`)
+  console.log(`Created ${todos.count} sample todos`);
 }
 
 main()
   .catch((e) => {
-    console.error('❌ Error seeding database:', e)
-    process.exit(1)
+    console.error('Error seeding database:', e);
+    process.exit(1);
   })
   .finally(async () => {
-    await prisma.$disconnect()
-  })
+    await prisma.$disconnect();
+  });
